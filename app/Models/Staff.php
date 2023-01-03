@@ -10,6 +10,6 @@ class Staff extends Model
     use HasFactory;
     protected $table = 'staff';
     protected $fillable = [
-        'name', 'jabatan'
+        'nama', 'jabatan'
     ];
 }
