@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Interfaces\MahasiswaInterface;
 use App\Interfaces\StaffInterface;
+use App\Interfaces\TicketInterface;
 use App\Repositories\MahasiswaRepository;
 use App\Repositories\StaffRepository;
+use App\Repositories\TicketRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -29,5 +31,6 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(StaffInterface::class, StaffRepository::class);
         $this->app->bind(MahasiswaInterface::class, MahasiswaRepository::class);
+        $this->app->bind(TicketInterface::class, TicketRepository::class);
     }
 }
