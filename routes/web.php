@@ -13,3 +13,10 @@ $router->group(['prefix' => 'v1/mahasiswa'], function() use ($router){
     $router->post('/', ['uses' => 'MahasiswaController@upsertData']);
     $router->delete('/{id}', ['uses' => 'MahasiswaController@deleteData']);
 });
+
+$router->group(['prefix' => 'v1/ticket'], function() use ($router){
+    $router->get('/', ['uses' => 'TicketController@getAllData']);
+    $router->get('/{id}', ['uses' => 'TicketController@getDataById']);
+    $router->post('/', ['uses' => 'TicketController@upsertData']);
+    $router->delete('/{id}', ['uses' => 'TicketController@deleteData']);
+});
