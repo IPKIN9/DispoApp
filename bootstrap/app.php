@@ -19,7 +19,11 @@ date_default_timezone_set(env('APP_TIMEZONE', 'Asia/Singapore'));
 |
 */
 
-$app = new Laravel\Lumen\Application(
+// $app = new Laravel\Lumen\Application(
+//     dirname(__DIR__)
+// );
+
+$app = new \Dusterio\LumenPassport\Lumen7Application(
     dirname(__DIR__)
 );
 
@@ -61,6 +65,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('cors');
+$app->configure('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +83,9 @@ $app->middleware([
     Fruitcake\Cors\HandleCors::class
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +104,8 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(App\Providers\RepositoryServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(Laravel\Passport\PassportServiceProvider::class);
+$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
