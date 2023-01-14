@@ -20,3 +20,8 @@ $router->group(['prefix' => 'v1/ticket'], function() use ($router){
     $router->post('/', ['uses' => 'TicketController@upsertData']);
     $router->delete('/{id}', ['uses' => 'TicketController@deleteData']);
 });
+
+$router->group(['prefix' => 'v1/pengajuan'], function() use ($router){
+    $router->post('/', ['uses' => 'PengajuanController@insertData']);
+    $router->get('/', ['uses' => 'PengajuanController@tiketStatus']);
+});
