@@ -15,7 +15,7 @@ class TicketRepository implements TicketInterface
             $data = array(
                 'message' => 'Get data successfully',
                 'code' => 201,
-                'data' => $con->TicketList($params)->get(),
+                'data' => $con->JoinList()->TicketList($params)->get(),
                 'meta' => array(
                     'limit' => (int)$params['limit'],
                     'page'  => (int)$params['page'],
