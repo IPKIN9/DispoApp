@@ -38,12 +38,12 @@ class Tiket extends Model
         $page = ($params['page'] - 1) * $params['limit'];
         if ($params['search']) {
             return $query
-            ->where('nama_mahasiswa', 'LIKE', '%'.$params['search'].'%')
-            ->orWhere('no_stambuk', 'LIKE', '%'.$params['search'].'%')
-            ->orWhere('prodi', 'LIKE', '%'.$params['search'].'%')
-            ->orWhere('fakultas', 'LIKE', '%'.$params['search'].'%')
-            ->orWhere('nama_staff', 'LIKE', '%'.$params['search'].'%')
-            ->orWhere('jabatan', 'LIKE', '%'.$params['search'].'%')
+            ->where('students.nama', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('students.stambuk', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('students.prodi', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('students.fakultas', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('staff_user.nama', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('staff_user.jabatan', 'LIKE', '%'.$params['search'].'%')
             ->offset($page)
             ->limit($params['limit']);
         } else {

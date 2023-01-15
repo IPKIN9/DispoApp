@@ -80,7 +80,7 @@ $app->configure('auth');
 
 $app->middleware([
     // App\Http\Middleware\ExampleMiddleware::class
-    Fruitcake\Cors\HandleCors::class
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 $app->routeMiddleware([
