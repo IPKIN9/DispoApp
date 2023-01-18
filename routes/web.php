@@ -22,6 +22,13 @@ if (config('app.env') !== 'local') {
         $router->post('/', ['uses' => 'TicketController@upsertData', 'middleware' =>'scope:crud-list,create-list']);
         $router->delete('/{id}', ['uses' => 'TicketController@deleteData', 'middleware' =>'scope:crud-list']);
     });
+    
+    $router->group(['prefix' => 'v1/user', 'middleware' => 'auth'], function() use ($router){
+        $router->get('/', ['uses' => 'UserController@getAllData', 'middleware' =>'scope:crud-list,create-list,validate-list']);
+        $router->get('/{id}', ['uses' => 'UserController@getDataById', 'middleware' =>'scope:crud-list,create-list,validate-list']);
+        $router->post('/', ['uses' => 'UserController@upsertData', 'middleware' =>'scope:crud-list,create-list']);
+        $router->delete('/{id}', ['uses' => 'UserController@deleteData', 'middleware' =>'scope:crud-list']);
+    });
 
 } else {
 
@@ -44,6 +51,13 @@ if (config('app.env') !== 'local') {
         $router->get('/{id}', ['uses' => 'TicketController@getDataById']);
         $router->post('/', ['uses' => 'TicketController@upsertData']);
         $router->delete('/{id}', ['uses' => 'TicketController@deleteData']);
+    }); 
+
+    $router->group(['prefix' => 'v1/user'], function() use ($router){
+        $router->get('/', ['uses' => 'UserController@getAllData']);
+        $router->get('/{id}', ['uses' => 'UserController@getDataById']);
+        $router->post('/', ['uses' => 'UserController@upsertData']);
+        $router->delete('/{id}', ['uses' => 'UserController@deleteData']);
     });
 }
 
@@ -51,3 +65,5 @@ $router->group(['prefix' => 'v1/pengajuan'], function() use ($router){
     $router->post('/', ['uses' => 'PengajuanController@insertData']);
     $router->get('/', ['uses' => 'PengajuanController@tiketStatus']);
 });
+
+$router->get('v1/scope', ['uses' => 'UserController@getRoleUser']);

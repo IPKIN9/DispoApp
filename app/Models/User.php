@@ -14,22 +14,29 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use HasApiTokens, Authenticatable, Authorizable, HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $table = 'users';
     protected $fillable = [
         'nama', 'email', 'password', 'role'
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'role'
+        'password'
     ];
+
+    public function scopeUserList($query, $params)
+    {
+        $page = ($params['page'] - 1) * $params['limit'];
+        if ($params['search']) {
+            return $query
+            ->where('nama', 'LIKE', '%'.$params['search'].'%')
+            ->orWhere('email', 'LIKE', '%'.$params['search'].'%')
+            ->offset($page)
+            ->limit($params['limit']);
+        } else {
+            return $query
+            ->offset($page)
+            ->limit($params['limit']);
+        }
+        
+    }
 }

@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\StaffInterface;
+use App\Interfaces\UserInterface;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StaffController extends Controller
 {
     private StaffInterface $staffRepo;
+    private UserInterface $userRepo;
 
-    public function __construct(StaffInterface $staffRepo)
+    public function __construct(StaffInterface $staffRepo, UserInterface $userRepo)
     {
         $this->staffRepo = $staffRepo;
+        $this->userRepo = $userRepo;
     }
     public function getAllData():JsonResponse
     {
@@ -45,7 +49,17 @@ class StaffController extends Controller
 
         $data = $this->staffRepo->upsert($dataId, $detail);
 
-        return response()->json($data, $data['code']);
+        if ($data['code'] === 201) {
+            $user = $this->userRepo->insertData(array(
+                "nama" => $request->nama,
+                "email" => $request->email,
+                "role" => $request->role,
+                "password" => Hash::make($request->password)
+            ));
+            
+        return response()->json($user, $user['code']);
+        }
+
     }
 
     public function deleteData($id)
