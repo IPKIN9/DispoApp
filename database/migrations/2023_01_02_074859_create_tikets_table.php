@@ -19,7 +19,7 @@ class CreateTiketsTable extends Migration
             $table->foreignId('id_mahasiswa')->constrained('mahasiswa');
             $table->foreignId('id_staff')->constrained('staff');
             $table->string('keterangan');
-            $table->string('verifikasi');
+            $table->boolean('verifikasi');
             $table->timestamps();
         });
     }

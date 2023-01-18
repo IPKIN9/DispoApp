@@ -19,7 +19,7 @@ if (config('app.env') !== 'local') {
     $router->group(['prefix' => 'v1/ticket', 'middleware' => 'auth'], function() use ($router){
         $router->get('/', ['uses' => 'TicketController@getAllData', 'middleware' =>'scope:crud-list,create-list,validate-list']);
         $router->get('/{id}', ['uses' => 'TicketController@getDataById', 'middleware' =>'scope:crud-list,create-list,validate-list']);
-        $router->post('/', ['uses' => 'TicketController@upsertData', 'middleware' =>'scope:crud-list,create-list']);
+        $router->post('/', ['uses' => 'TicketController@upsertData', 'middleware' =>'scope:crud-list,create-list,validate-list']);
         $router->delete('/{id}', ['uses' => 'TicketController@deleteData', 'middleware' =>'scope:crud-list']);
     });
     

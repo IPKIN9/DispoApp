@@ -30,7 +30,7 @@ class PengajuanController extends Controller
         $tiket = array(
             'no_tiket' => $request->stambuk,
             'id_mahasiswa' => 0,
-            'id_staff' => 3,
+            'id_staff' => 1,
             'keterangan' => $request->keterangan,
             'verifikasi' => false,
         );
@@ -45,12 +45,8 @@ class PengajuanController extends Controller
 
     public function tiketStatus():JsonResponse
     {
-        $params = array(
-            'search' => request('search'),
-            'limit' => 1,
-            'page' => 1,
-        );
-        $data = $this->ticketRepo->getAll($params);
+        $noTiket = request('no_tiket');
+        $data = $this->ticketRepo->getStatus($noTiket);
 
         return response()->json($data, $data['code']);
     }
